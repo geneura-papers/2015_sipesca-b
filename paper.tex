@@ -49,6 +49,91 @@ Our aim with is providing public access and details of this benchmark as well as
 %********************************************************************************
 \section{Introduction}
 
+%En diversos campos existen benchmarks estándar que son utilizados ampliamente por los investigadores, tal como el Proben1 \cite{Prechelt1994} en el área de las redes neuronales artificiales o el benchmark de la competición de optimización funcional del congreso IEEE Congress on Evolutionary Computation \cite{CEC2014}.
+There are many fields where standard benchmarks are widely used by researchers, such as Proben1 \cite{Prechelt1994} in the artificial neural networks area, or the functional optimization competition benchmark of IEEE Congress on Evolutionary Computation \cite{CEC2014}.
+
+%Sin embargo, en otros campos hay una necesidad de este tipo de problemas reales, como por ejemplo en el área de la gestión del tráfico. En este área, por la tipología de los problemas, existe una dificultad de obtener datos reales.
+However, in other areas there is a need for this type of real problems, such as in the area of traffic management.
+In this area, due to the type of problems, there is a difficulty in obtaining and using real data.
+%En algunos casos por la dificultad de disponer de los datos en un formato adecuado \cite{Flyvbjerg2008}, y en otros casos por tratarse de datos comerciales confidenciales \cite{Bain2009} obtenidos, p.ej. en peajes de autopistas \cite{Kriger2006}.
+In some cases due to the lack of data in a suitable format \cite{Flyvbjerg2008}, and in other cases because it is confidential commercial data \cite{Bain2009} obtained, i.e., in highway tolls \cite{Kriger2006}. 
+%Esto hace que sólo en ciertos trabajos de investigación se puedan usar, con lo que es imposible comparar resultados con otros. 
+Thus, only certain research works can use that data, which makes impossible to compare results with other researchers.
+
+% Department of Infraestructure and Transport. Australian Government. Review the Traffic Forecasting Performance Toll Roads. http://www.infrastructure.gov.au/infrastructure/public_consultations/files/attach_a_bitre_literature_review.pdf
+%
+% Kriger2006
+% toll data  /  data required for traffic modelling may include, among other things, traffic counts, network characteristics and generalised travel costs. These data are sometime lacking or subject to sampling/processing errors
+%
+%Flyvbjerg2008
+% Inappropriate models, poor quality and/or lack of data, and inadequate modelling assumptions are often cited in the literature as the main sources of forecasting errors.
+%
+% Bain2009
+%http://ibtta.org/sites/default/files/Error%20and%20optimism%20in%20traffic%20predictions.pdf
+% absence of comparative data
+% available toll road data 
+% The author had access to commercial-in-confidence documentation [...] compiled a database of predicted and actual traffic usage for over 100 international, privately financed toll road projects
+% 
+% \cite{Morzy2007}
+% Synthetic datasets were generated using Network-based Generator of Moving Objects by T.Brinkhoff \cite{Brinkhoff2002}. 
+%
+% \cite{PLAISANT2008}
+% “facilitate the comparison of different techniques and encourage researchers to work on challenging problems”
+
+%Es por esto que muchos investigadores presentan sus trabajos usando simuladores de tráfico \cite{Morzy2007} o benchmarks artificiales para obtener datos con los que trabajar (aplicarles algoritmos de extracción de información o predicción). 
+That is why many researchers present their work using traffic simulators \cite{Morzy2007} or artificial benchmarks to obtain data to which applying data mining or prediction algorithms.
+%
+% Linear Road Benchmark simulates a variable tolling system [6]
+% The system uses the MIT Trac Simulator to generate moving vehicles
+%
+% The DynaMark Benchmark simulates the movement of mobile users  who update their location with an average periodicity. [14]
+%
+% COST Benchmark  simulated objects with periodically updated 2-D locations.   [12]
+%
+% The BerlinMOD benchmark, like LRB, simulates spatio-temporal data of moving vehicles on a road network [9]. 
+%
+% HE GSMARK BENCHMARK: The resulting data consists of a real road network with simulated moving vehicles \cite{Shen2011}
+%
+% \cite{Gidofalvi2010}
+% data set contains the GPS readings of 1500 taxis and 400 trucks travelling on the streets of Stockholm
+%
+%Entre estos benchmarks sintéticos cabe destacar:
+Among these synthetic benchmarks we can mention:
+\begin{itemize}
+  \item  \emph{Linear Road Benchmark} uses the \emph{MIT Trac Simulator} to simulate the movement of vehicles on a toll \cite{Arasu2004}.
+  \item  \emph{DynaMark Benchmark} simulates the movement of users, updating its position with a certain frequency \cite{Myllymaki2003}.
+  \item  \emph{COST Benchmark} simulates moving objects and periodically updates its 2D position \cite{Jensen2006}.
+  \item  \emph{BerlinMOD Benchmark} simulates spatio-temporal data from vehicle movements on a real road network \cite{Duntgen2009}.
+  \item  \emph{GSMARK Benchmark} generates data from a real road on which simulating the vehicle movements \cite{Shen2011}.
+  \item  \emph{Transport and Logistics Division of the Department of Urban Planning and Environment} public benchmark, consisting of real data from the GPS position of 1500 taxis and 400 trucks moving through the streets of Stockholm \cite{Gidofalvi2010}.
+\end{itemize}
+
+
+%Así pues, hay una necesidad clara de benchmarks estándar basados en datos reales del tráfico, así como reglas o convenciones para usarlos en la evaluación de métodos de predicción en la gestión del tráfico.  Una forma de arreglar este problema es fomentar que los investigadores o bien usen benchmarks estándar o bien publiquen no sólo los resultados obtenidos sino también los datos del problema utilizado y su descripción detallada.
+Thus there is a need for, not only standard benchmarks based on real traffic data, but also rules or conventions about how to use them to evaluate different prediction methods in the traffic management field.
+One way to face this problem is to encourage researchers to either use standard benchmarks or publish not only the results but also the problem data along its detailed description.
+
+%Como se ha indicado, no basta con un conjunto de problemas y reglas, sino que hay que asegurarse de que los resultados obtenidos al utilizar dichos problemas sean comparables y reproducibles. Para ello hay que disponer de unos resultados de referencia que sirvan de base para las comparaciones.
+As stated, it is not enough using a set of problems and rules; researchers should take into account that the results obtained using these problems must be comparable and reproducible.
+In order to achieve this, some benchmark results are necessary as a basis for comparisons.
+
+%Disponiendo del benchmark a partir de datos reales, las reglas de aplicación/documentación, y los resultados base para la comparación, se facilita el trabajo de los investigadores, asegurando la reproducibilidad y comparabilidad de resultados \cite{PLAISANT2008}.
+Having the real data based benchmark, application rules, documentation and some results for the sake of comparison, facilitates the researchers' work, ensuring reproducibility and comparability of results \cite{PLAISANT2008}.
+
+%En este sentido, SIPESCA-B pretende ser un primer paso hacia un benchmark estándar para el área de la gestión del tráfico, compuesto de diversas series temporales obtenidas a partir de datos reales del paso de vehículos por diversos puntos de las carreteras andaluzas. Su disponibilidad facilita el acceso a los investigadores a datos reales de movilidad en formatos sencillos y ampliamente extendidos.
+In this sense, SIPESCA-B is intended as a first step towards a standard benchmark for the traffic management field. It consist of several time series obtained from real data from passing vehicles through several geographical points of Andalusian roads.
+Making it publicly available facilitates the access to researchers to real mobility data, using simple and widespread formats.
+
+%Además, siguiendo las recomendaciones de Prechelt \cite{Prechelt1994}, se proponen una serie de reglas para llevar a cabo la aplicación de métodos de predicción a estos problemas.
+In addition, following the recommendations of Prechelt \cite{Prechelt1994}, a set of rules are proposed to carry out the implementation and use of prediction methods to face these problems.
+
+%El hecho de preferir problemas basados en datos reales frente a datos artificiales o sintéticos hace que la investigación y sus resultados sean relevantes en al menos un ámbito \cite{Prechelt1994,PLAISANT2008}.
+Finally, using real data problems versus artificial or synthetic data problems makes research and its results are relevant in at least one field \cite{Prechelt1994,PLAISANT2008}.
+
+
+The rest of this paper is organized as follows:
+
+COMPLETAR...
 
 
 %********************************************************************************
