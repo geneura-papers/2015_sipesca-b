@@ -259,10 +259,11 @@ The proposed error measurements are:
             MAE = \frac{1}{n}\sum_{i=1}^n {\mid p_i - o_i\mid}
         \end{equation}
 
-  \item \emph{Mean Absolute Percentage Error} (MAPE):
+  \item \emph{Mean Absolute Percentage Error} (MAPE)\footnote{http://en.wikipedia.org/wiki/Mean\_absolute\_percentage\_error}. As in some cases a series of small denominators might lead to a division by zero, some authors \cite{kglt2009,hyysms2004} propose changing the original formula replacing each actual value ($o_i$) of the series by the average actual value ($\overline{o_i}$) of that series:
+  		%  sum( abs( (predicho - real) / mean(real) ) ) / length(real)*100
         \begin{equation}\label{eq:MAPE}
             % MAPE = mean(\mid p_t\mid)
-            MAPE = \frac{1}{n}\sum_{i=1}^n {\mid \frac{p_i - o_i}{o_i}\mid}
+            MAPE = \frac{1}{n}\sum_{i=1}^n {\mid \frac{p_i - \overline{o_i}}{ \overline{o_i} } \mid}
         \end{equation}
         
   \item \emph{Mean Squared Error} (MSE):
@@ -277,6 +278,10 @@ The proposed error measurements are:
 
 \end{itemize}
 
+where 
+$o_i$ is the actual value $i = {1,...,n}$ 
+and
+$p_i$ is the obtained prediction.
 
 
 %********************************************************************************
@@ -354,46 +359,46 @@ The best (lowest) obtained value has been highlighted in bold in each case.
 \multicolumn{5}{c}{Dataset ITISE15-TS\_A} \\
 \hline
    		&   MAE 			& MAPE($\%$) 		&  MSE 			   		&   RMSE 	          \\
-LR  	& $998.49$ 			&  $8.72$    		& $1154885$  			& $1074.66$  \\ 
-MLP     & $5797.87$ 		&  $55.74$   		& $51935780$ 			& $7206.65$  \\  
-SMOreg 	& $\textbf{904.96}$ &  $\textbf{8.19}$  & $\textbf{923405.9}$ 	& $\textbf{960.94}$  \\ 
+LR  	& $998.49$ 			&  $7.38$    		& $1154885$  			& $1074.66$  \\ 
+MLP     & $5797.87$ 		&  $42.87$   		& $51935780$ 			& $7206.65$  \\  
+SMOreg 	& $\textbf{904.96}$ &  $\textbf{6.69}$  & $\textbf{923405.9}$ 	& $\textbf{960.94}$  \\ 
 % ITISE15-TS_A
-% LR:     mae: 998.49 mape: 8.72044% mse: 1154885 rmse: 1074.656
-% MLP:    mae:5797.87 mape:55.74392% mse: 51935780 rmse: 7206.648
-% SMOreg: mae: 904.96 mape: 8.19632% mse: 923405.9 rmse: 960.9401
+% LR		mae: 998.498 mape: 7.383858 mse: 1154885  rmse: 1074.656
+% MLP		mae: 5797.87 mape: 42.87504 mse: 51935780 rmse: 7206.648
+% SMOreg	mae: 904.955 mape: 6.692116 mse: 923405.9 rmse: 960.9401
 \hline
 \multicolumn{5}{c}{Dataset ITISE15-TS\_B} \\
 \hline
    		&   MAE 			& MAPE($\%$) 		&  MSE 			   		&   RMSE 	          \\
-LR  	& $241.12$ 			&  $95.48$    		& $\textbf{80884.84}$	& $\textbf{284.40}$  \\ 
-MLP     & $\textbf{238.03}$	&  $180.92$   		& $90627.6$ 			& $301.04$  \\  
-SMOreg 	& $319.45$ 			&  $\textbf{72.71}$ & $164918.9$			& $406.10$  \\ 
+LR  	& $235.91$ 			&  $72.99$    		& $79297.86$			& $281.59$  \\ 
+MLP     & $316.97$			&  $98.07$   		& $152264.6$ 			& $390.21$  \\  
+SMOreg 	& $\textbf{175.20}$	&  $\textbf{54.20}$ & $\textbf{46498.79}$	& $\textbf{215.63}$  \\ 
 % ITISE15-TS_B
-% LR:	  mae: 241.1278 mape: 95.48794% mse: 80884.84 rmse: 284.4026
-% MLP:	  mae: 238.0346 mape: 180.9293% mse: 90627.6 rmse: 301.0442
-% SMOreg: mae: 319.4536 mape: 72.71241% mse: 164918.9 rmse: 406.1021
+% LR		mae: 235.9162 mape: 72.99199 mse: 79297.86 rmse: 281.5988
+% MLP		mae: 316.9796 mape: 98.07286 mse: 152264.6 rmse: 390.211
+% SMOreg	mae: 175.2076 mape: 54.20887 mse: 46498.79 rmse: 215.6358
 \hline
 \multicolumn{5}{c}{Dataset ITISE15-TS\_C} \\
 \hline
    		&   MAE 			& MAPE($\%$) 		&  MSE 			   		&   RMSE 	          \\
-LR  	& $\textbf{191.81}$	&  $439.57$    		& $\textbf{48154.81}$	& $\textbf{219.44}$  \\ 
-MLP     & $193.90$ 			&  $439.71$   		& $50463.92$ 			& $224.64$  \\  
-SMOreg 	& $211.94$ 			&  $\textbf{271.80}$& $58283.55$ 			& $241.41$  \\ 
+LR  	& $\textbf{191.81}$	&  $\textbf{59.34}$	& $\textbf{48154.81}$	& $\textbf{219.44}$  \\ 
+MLP     & $193.90$ 			&  $59.99$   		& $50463.92$ 			& $224.64$  \\  
+SMOreg 	& $211.94$ 			&  $65.57$			& $58283.55$ 			& $241.41$  \\ 
 % ITISE15-TS_C
-% LR:	 mae: 191.8191 mape: 439.5766 mse: 48154.81 rmse: 219.442
-% MLP:	 mae: 193.9083 mape: 439.7194 mse: 50463.92 rmse: 224.6418
-% SMOreg mae: 211.9413 mape: 271.8045 mse: 58283.55 rmse: 241.4199
+% LR		mae: 191.8191 mape: 59.34844 mse: 48154.81 rmse: 219.442
+% MLP		mae: 193.9083 mape: 59.99482 mse: 50463.92 rmse: 224.6418
+% SMOreg	mae: 211.9413 mape: 65.5742 mse: 58283.55  rmse: 241.4199
 \hline
 \multicolumn{5}{c}{Dataset ITISE15-TS\_D} \\
 \hline
-   		&   MAE 			& MAPE($\%$) 	&  MSE 			   		&   RMSE 	          \\
-LR  	& $\textbf{47.10}$ 	&  $-$    		& $\textbf{3082.39}$	& $\textbf{55.51}$  \\ 
-MLP     & $63.18$ 			&  $-$   		& $6781.66$ 			& $82.35$  \\  
-SMOreg 	& $67.19$			&  $-$			& $7224.36$ 			& $84.99$  \\ 
+   		&   MAE 			& MAPE($\%$) 		&  MSE 			   		&   RMSE 	          \\
+LR  	& $\textbf{47.10}$ 	&  $\textbf{50.32}$	& $\textbf{3082.39}$	& $\textbf{55.51}$  \\ 
+MLP     & $63.18$ 			&  $67.51$   		& $6781.66$ 			& $82.35$  \\  
+SMOreg 	& $67.19$			&  $71.80$			& $7224.36$ 			& $84.99$  \\ 
 % ITISE15-TS_D
-% LR:	 mae: 47.10006 	mape: Inf mse: 3082.39 rmse: 55.51928
-% MLP:	 mae: 63.187 	mape: Inf mse: 6781.661 rmse: 82.35084
-% SMOreg:mae: 67.19821 	mape: Inf mse: 7224.36 rmse: 84.99624
+% LR		mae: 47.10006 mape: 50.32954 mse: 3082.39  rmse: 55.51928
+% MLP		mae: 63.187   mape: 67.51951 mse: 6781.661 rmse: 82.35084
+% SMOreg	mae: 67.19821 mape: 71.80575 mse: 7224.36  rmse: 84.99624
 \hline
 \end{tabular}
 }
@@ -428,9 +433,10 @@ ITISE15-TS\_C & ITISE15-TS\_D \\
 %Although in this study we are not interested on specific results, it can be seen that the best results were obtained using the SVM-MLP method.
 
 
-As can be seen, classical methods are unable to predict on the short time.
-Paying attention to the MAPE results (it is a relative metric), in some cases, values over $100\%$ have been obtained, indicating that the method in question is performing worse than simply predicting the mean of the training data.
-Taking into account the differences between RMSE and MAE, a big difference between them can be appreciated, what means a big variance in the individual errors in the sample.
+As can be seen, classical methods are unable to predict on the short-term.
+Paying attention to the MAPE results (it is a relative metric), in some cases, values close to $100\%$ have been obtained, indicating that the method in question is performing worse than simply predicting the mean of the training data.
+Taking into account the differences between RMSE and MAE, a big difference between them can be appreciated, what means a big variance in the individual errors in the sample. 
+This fact is more noticeable in the short-term forecasts (30 and 15 min) than in the diary and hourly predictions.
 
 Obtained predictions have been plotted in figures in Table \ref{tabla:plotspredictions}. 
 As can be seen, proposed methods are unable to adjust their predictions to those expected, and only for the first dataset (ITISE15-TS\_A) accurate predictions are obtained using LR and SMOreg.
@@ -458,7 +464,8 @@ Three different prediction methods, validated in the literature, have been selec
 %As Table \ref{tabla:errores} shows, the best overall prediction results were obtained using the SVM-MLP method.
 %In most cases, this method obtains lower error measurements when predicting considered time series.
 
-As Table \ref{tabla:errores} shows, classical methods are unable to predict on the short time. Taking into account some metrics, we have seen that the proposed methods perform worse than simply predicting the mean of the training data.
+As Table \ref{tabla:errores} shows, classical methods are unable to predict on the short-term. 
+Taking into account some metrics, we have seen that the proposed methods perform worse than simply predicting the mean of the training data.
 Also, plotting obtained predictions on the proposed time series, only for the first dataset (ITISE15-TS\_A) accurate predictions are obtained using LR and SMOreg.
 
 
