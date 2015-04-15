@@ -1,0 +1,488 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% - ITISE - completo - %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[runningheads,a4paper]{llncs}
+\usepackage{graphics}
+\usepackage{amssymb}
+\usepackage[dvips]{epsfig}
+%\usepackage[spanish]{babel}
+\usepackage[latin1]{inputenc}
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\begin{document}
+\mainmatter  % start of an individual contribution
+
+%%%%%%%%%%%%%%%% Titulo %%%%%%%%%%%%%%%
+\title{SIPESCA-Competition: a set of real data \\ time series benchmark for traffic prediction}
+\titlerunning{SIPESCA-Competition}
+
+%%%%%%%%%%%%%%%% autores %%%%%%%%%%%%%%%
+\author {
+%P.A. Castillo et al.
+P.A. Castillo, A.J. Fern\'andez-Ares, M.G. Arenas, A. Mora, V. Rivas, \\
+P. Garc\'{\i}a-S\'anchez, G. Romero, P. Garc\'{\i}a-Fern\'andez, J.J. Merelo
+}
+\authorrunning{P.A. Castillo et al.}
+\institute{Department of Architecture and Computer Technology. CITIC \\
+           University of Granada (Spain) \\
+~\\
+           e-mail: {\tt pacv@ugr.es}
+}
+
+%\date{} 
+
+\toctitle{SIPESCA-B: a set of real data time series benchmark for traffic prediction}
+\tocauthor{P.A. Castillo et al.}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+In the traffic management field no public real-data benchmarks are available to the research community, so that they can test their information extracting methods and compare their results with those obtained by other researchers.
+In this work, a set of time series obtained by monitoring the traffic at several locations in the Spanish road network, is presented as the base for the SIPESCA-Competition. 
+Time series are build using real data from the number of vehicles that have passed through certain locations along several months.
+The datasets are provided in simple and widespread formats and are left available in a public repository.
+Our aim is providing public access and details of these time series as well as preliminary results with various prediction methods to the research community to serve as comparison of future results in the management and traffic prediction field.
+
+\end{abstract}
+
+%\begin{keywords}
+  %Traffic flow forecasting, Bluetooth technology, Prediction, Time Series
+  %Benchmarks, Traffic Prediction, Bluetooth, Time Series
+%\end{keywords}
+
+%********************************************************************************
+\section{Introduction}
+
+There are many fields where standard benchmarks are widely used by researchers, such as Proben1 \cite{Prechelt1994} in the artificial neural networks area, or the functional optimization competition benchmark of IEEE Congress on Evolutionary Computation \cite{CEC2014}.
+
+However, in other areas there is a need for this type of real problems, such as in the area of traffic management.
+In this area, due to the type of problems, there is a difficulty in obtaining and using real data.
+In some cases due to the lack of data in a suitable format \cite{Flyvbjerg2008}, and in other cases because it is confidential commercial data \cite{Bain2009} obtained, i.e., in highway tolls \cite{Kriger2006}. 
+Thus, only certain research works can use that data, which makes impossible to compare results with other researchers.
+
+% Department of Infraestructure and Transport. Australian Government. Review the Traffic Forecasting Performance Toll Roads. http://www.infrastructure.gov.au/infrastructure/public_consultations/files/attach_a_bitre_literature_review.pdf
+%
+% Kriger2006
+% toll data  /  data required for traffic modelling may include, among other things, traffic counts, network characteristics and generalised travel costs. These data are sometime lacking or subject to sampling/processing errors
+%
+%Flyvbjerg2008
+% Inappropriate models, poor quality and/or lack of data, and inadequate modelling assumptions are often cited in the literature as the main sources of forecasting errors.
+%
+% Bain2009
+%http://ibtta.org/sites/default/files/Error%20and%20optimism%20in%20traffic%20predictions.pdf
+% absence of comparative data
+% available toll road data 
+% The author had access to commercial-in-confidence documentation [...] compiled a database of predicted and actual traffic usage for over 100 international, privately financed toll road projects
+% 
+% \cite{Morzy2007}
+% Synthetic datasets were generated using Network-based Generator of Moving Objects by T.Brinkhoff \cite{Brinkhoff2002}. 
+%
+% \cite{PLAISANT2008}
+% “facilitate the comparison of different techniques and encourage researchers to work on challenging problems”
+
+That is why many researchers present their work using traffic simulators \cite{Morzy2007} or artificial benchmarks to which apply data mining or prediction algorithms.
+%
+% Linear Road Benchmark simulates a variable tolling system [6]
+% The system uses the MIT Trac Simulator to generate moving vehicles
+%
+% The DynaMark Benchmark simulates the movement of mobile users  who update their location with an average periodicity. [14]
+%
+% COST Benchmark  simulated objects with periodically updated 2-D locations.   [12]
+%
+% The BerlinMOD benchmark, like LRB, simulates spatio-temporal data of moving vehicles on a road network [9]. 
+%
+% HE GSMARK BENCHMARK: The resulting data consists of a real road network with simulated moving vehicles \cite{Shen2011}
+%
+% \cite{Gidofalvi2010}
+% data set contains the GPS readings of 1500 taxis and 400 trucks travelling on the streets of Stockholm
+%
+Among these synthetic benchmarks we can mention:
+\begin{itemize}
+  \item  \emph{Linear Road Benchmark} uses the \emph{MIT Trac Simulator} to simulate the movement of vehicles on a toll \cite{Arasu2004}.
+  \item  \emph{DynaMark Benchmark} simulates the movement of users, updating its position with a certain frequency \cite{Myllymaki2003}.
+  \item  \emph{COST Benchmark} simulates moving objects and periodically updates their 2D position \cite{Jensen2006}.
+  \item  \emph{BerlinMOD Benchmark} simulates spatio-temporal data from vehicle movements on a real road network \cite{Duntgen2009}.
+  \item  \emph{GSMARK Benchmark} generates data taking a real road map on which simulating the vehicle movements \cite{Shen2011}.
+  \item  \emph{Transport and Logistics Division of the Department of Urban Planning and Environment} public benchmark, consisting of real data from the GPS position of 1500 taxis and 400 trucks moving through the streets of Stockholm \cite{Gidofalvi2010}.
+\end{itemize}
+
+
+Thus there is a need for, not only standard benchmarks based on real traffic data, but also rules or conventions about how to use them to evaluate different prediction methods in the traffic management field.
+One way to face this problem is to encourage researchers to either use standard benchmarks or publish not only the results but also the problem data along its detailed description.
+This way, having the real data based problem, application rules, documentation and some results for the sake of comparison, facilitates the researchers' work, ensuring reproducibility and comparability of results \cite{PLAISANT2008}.
+
+In this sense, the SIPESCA-Competition is intended as a benchmark for the traffic management field. It consist of several time series obtained from real data from passing vehicles through several geographical points of Spanish roads.
+Making it publicly available facilitates the access to researchers to real mobility data, using simple and widespread formats.
+
+In addition, following the recommendations of Prechelt \cite{Prechelt1994}, a set of prediction methods, tools and metrics are proposed to solve these forecasting problems.
+
+%Finally, using real data problems versus artificial or synthetic data problems makes research and its results are relevant in at least one field \cite{Prechelt1994,PLAISANT2008}.
+
+The rest of this paper is organized as follows:
+In Section \ref{sec:timeseries}, the research project within this work has been developed is presented. This section details how the time series data has been obtained.
+Section \ref{sec:medidasdeerror} proposes several standard measures of error to be used when carrying out the time series predictions, so that the obtained results are comparable with those presented by other authors.
+Then, a brief state of the art on methods for time series forecast is presented (Section \ref{sec:ForecastTools}), 
+followed by a series of experimental results on the SIPESCA-Competition time series, using several prediction methods and the proposed measures of error (Section \ref{sec:Experiments}).
+Finally, Section \ref{sec:Conclusions} presents a brief conclusions and future works.
+
+
+%********************************************************************************
+\section{Time series data collection}
+\label{sec:timeseries}
+
+In this section the research project in which data from passing vehicles through several roads was obtained, is presented. 
+%Then, the general principles and objectives of the proposed benchmark, named SIPESCA-B, are discussed. 
+Finally, the time series that were used in the experiments presented in Section \ref{sec:Experiments} are described.
+
+\subsection{Data collection. The SIPESCA project}
+
+This work is part of the project \emph{''Sistema de Información y Predicción de bajo coste y autónomo para conocer el Estado de las Carreteras en tiempo real mediante dispositivos distribuidos'' (SIPESCA)} \cite{papersipesca2}.  % \cite{papersipesca1,papersipesca2}.
+The main objective of this project was building a low-cost, rapid deployment and high reliability system to provide real-time information about the traffic status and flows that occur in a certain area.  %, allowing to optimally manage motion decisions not only by the institutions and traffic agencies, but also by citizens (i.e. through mobile alerts or through web).
+
+SIPESCA monitoring devices have collected a large amount of data corresponding to passing Bluetooth (BT) or Wifi devices by various routes of different types (highways, roads and streets in Granada and several towns in the metropolitan area of Seville, Spain).
+Taking and analyzing collected data, several time series of passing vehicles have been built. 
+Using these time series, the traffic flow on those monitored roads can be predicted.
+
+%Data acquisition is based on the detection of Bluetooth (BT) and Wifi devices, which provides a description of the traffic conditions in real time as well as a set of reliable data to carry out traffic prediction using several time series forecasting techniques. Both BT devices embedded in some kind of vehicle and personal devices with BT or WiFi enabled are detected and accounted.
+
+The system collects the device BT/Wifi MAC address (\emph{media access control} or physical address, is a 48-bit identifier that uniquely corresponds to a card or network device) as well as the exact time at which it has been detected. 
+%The MAC is an unique identifier for each device, allowing us to identify passing vehicles. Additionally, analyzing the MAC allows us to determine the manufacturer, model, and even distinguish what type of device it is and its features (i.e. handsfree, PC, mobile phone, etc), as detailed in \cite{IEEEBT} and \cite{WikipediaOUI}.
+Data is encrypted and stored allowing to identify just the device, but not the user, so that user privacy is guaranteed.
+Proposed acquisition method allows identifying a device in several city locations, which can give an idea of how that device has been moving through observation points.
+
+%Specifically, the Intelify\footnote{http://www.intelify.net} device was used for data acquisition, as it offers a suitable solution to capture BT/Wifi devices (it exhibits a 8.5 \% error in data collection). Intelify is an autonomous unit that scan the environment and sends the information to a central server using a 3G\footnote{http://en.wikipedia.org/wiki/3G} connection for further processing and interpretation.
+
+Finally, obtained information is organized into an entity called ''pass''. This refers to an individualized device detected on a node at a given start time and up to an specific end time. Thus, the data node, device MAC, start time and end time categorize a step.
+
+
+\subsection{SIPESCA-Competition}
+
+Publishing the SIPESCA-Competition seeks to offer a set of time series, obtained from real data, to practitioners in the field of management and traffic prediction.
+
+Data sets are provided in plain text, using CSV format, and are left available at the competition web page {\tt http://geneura.ugr.es/timeseries/}
+
+Along with the data sets and the basic rules to use them, a set of predictions obtained using several time series prediction methods are presented. Thus, practitioners can use those predictions as a basis for comparisons.
+
+By using these time series, the reproducibility of future experiments can be improved, so that, other researchers can replicate experiments. This is an important point, as the reproducibility is a bedrock requirement of modern science, in order to check the experiments validity.
+
+Furthermore, in many papers authors just cite well-known problems in a diffuse way, such as ''the Glass Proben1 has been used'' \cite{Prechelt1994}.
+Those references are confusing, as there may be several versions of the problem. 
+We intend to solve this problem using well-documented problems, and the comparability of obtained results using different methods. 
+
+
+\subsection{Time series publication}
+\label{subsection:timeseries}
+
+As stated above, the time series are left available at the competition web page\footnote{http://geneura.ugr.es/timeseries/}
+offering the time series in CSV file format.
+They correspond to four monitoring devices installed in Granada (Spain) and include data between November 14, 2012 and August 07, 2013.
+Figures \ref{fig:ts1} to \ref{fig:ts4} show proposed time series.
+
+Four different time intervals (diary, hourly, 30 min and 15 min) are presented:
+\begin{itemize}
+  \item ITISE15-TS\_A. Interval: Diary Time Serie, from 2012-11-26 to 2013-07-14. 231 values for training. 7 values for testing.
+  \item ITISE15-TS\_B. Interval: Hourly Time Serie, from 2013-05-22 00:00 (W) to 2013-08-07 00:00 (W). 1872 values for training. 24 values for testing.
+  \item ITISE15-TS\_C. Interval: 30 min Time Serie, from 2012-11-24 00:00 (W) to 2013-07-21 00:00 (W). 11518 values for training. 48 values for testing.
+  \item ITISE15-TS\_D. Interval: 15 min Time Serie, from 2012-11-14 00:00 (W) to 2013-02-24 00:00 (W). 9888 values for training. 96 values for testing.
+\end{itemize}
+
+Please, note that in some cases, the time period the series covers comprises Christmas holidays and the first days of the year, which in that date accounted for more than 3.3 million vehicle displacements.
+Thus, we are dealing with time series in which many vehicles changed the usual traffic pattern in that area.
+
+\begin{figure*} 
+\centering
+\epsfig{file=ts1.eps,width=8cm} 
+\caption{Plot of the time series ITISE15-TS\_A. Interval: Diary Time Serie, from 2012-11-26 to 2013-07-14. Total of 231 values. In this figure the total number of points are shown.}
+\label{fig:ts1}
+\end{figure*}
+
+\begin{figure*} 
+\centering
+\epsfig{file=ts2.eps,width=8cm} 
+\caption{Plot of the time series ITISE15-TS\_B. Interval: Hourly Time Serie, from 2013-05-22 00:00 (W) to 2013-08-07 00:00 (W). Total of 1872 values. This figure shows an approximation, as the total number of points can not be plotted.}
+\label{fig:ts2}
+\end{figure*}
+
+\begin{figure*} 
+\centering
+\epsfig{file=ts3.eps,width=8cm} 
+\caption{Plot of the time series ITISE15-TS\_C. Interval: 30 min Time Serie, from 2012-11-24 00:00 (W) to 2013-07-21 00:00 (W). Total of 11518 values. This figure shows an approximation, as the total number of points can not be plotted.}
+\label{fig:ts3}
+\end{figure*}
+
+\begin{figure*} 
+\centering
+\epsfig{file=ts4.eps,width=8cm} 
+\caption{Plot of the time series ITISE15-TS\_D. Interval: 15 min Time Serie, from 2012-11-14 00:00 (W) to 2013-02-24 00:00 (W). Total of 9888 values. This figure shows an approximation, as the total number of points can not be plotted.}
+\label{fig:ts4}
+\end{figure*}
+
+Furthermore, due to the problem at hand and especially the type of hardware used, there are some times when the nodes do not detect any device. This might happend either because there is a period without passing vehicles, or because the monitoring node has stopped working ).
+In such cases, the number of vehicles detected is zero.
+That is why time series with missing values are offered. These time series are noted with the AN substring as part of the filename.
+Missing values are marked with the NA value in the time series.
+
+%Finally, note that not only described time series have been offered, but also raw data has been left available in folder \emph{raw}. Raw data, together with some functions developed using language R (included in the \emph{script} repository folder) might allow any researcher to generate new time series according to his needs (not restricted to those that have been generated and published).
+
+
+%********************************************************************************
+\section{Forecast accuracy measures}
+\label{sec:medidasdeerror}
+
+%En la literatura se pueden encontrar muchas medidas de error diferentes (también llamadas funciones de error o funciones de coste) al mostrar los resultados obtenidos con los métodos de predicción.
+In the literature, different error measures can be found to report the results obtained using the prediction methods. Those error measurements are also called error functions or cost functions. 
+
+%Una de las más conocidas y utilizadas es la del error cuadrático, y derivada de ésta, la del error cuadrático medio (ver la ecuación \ref{eq:MSE}), que presenta la ventaja de ser independiente del tamaño del conjunto de datos. Sin embargo, en muchos trabajos de investigación se utilizan otras muchas, y en ocasiones con pequeñas diferencias introducidas en las ecuaciones utilizadas.
+One of the most commonly used are the squared error and the mean squared error (see equation \ref{eq:MSE}); the latter is independent of the dataset size.
+However, many different measures are used in research, sometimes with small differences in defining equations.
+
+%En cualquier caso, se recomienda utilizar ecuaciones estándar ampliamente aceptadas y utilizadas por la comunidad\footnote{http://www.gepsoft.com/gxpt4kb/Chapter10/Section3/Introduction.htm} para poder comparar los resultados obtenidos con los presentados en otros trabajos de investigación utilizando otros métodos predictivos.
+In any case, we recommend using widely accepted standard equations\footnote{http://www.gepsoft.com/gxpt4kb/Chapter10/Section3/Introduction.htm} in order to compare obtained results with those presented in other research papers using other methods.
+
+%Es por esto que junto con el benchmark, se aportan diferentes medidas de error estándar (ecuaciones \ref{eq:MAE} a \ref{eq:DA})  que se pueden encontrar implementadas en herramientas como Weka\footnote{http://wiki.pentaho.com/display/DATAMINING} \cite{LibroWeka} o R\footnote{https://www.otexts.org/fpp/2/5} \cite{LibroR}.
+That is why, along with the time series benchmark, different standard error measurements (Equations \ref{eq:MAE} to \ref{eq:RMSE}), implemented in tools like Weka\footnote{http://wiki.pentaho.com/display/DATAMINING} \cite{LibroWeka} or R\footnote{https://www.otexts.org/fpp/2/5} \cite{LibroR}, are proposed.
+
+The proposed error measurements are:
+% To compare the methods, the forecasting of the four methods is used for error measurement calculation. The error measurements are\footnote{\url{https://www.otexts.org/fpp/2/5}}: 
+% Mean absolute error (MAE), Root mean squared error (RMSE), Mean absolute percentage error (MAPE), Root relative squared error (RRSE), Relative absolute error (RAE), Direction accuracy (DA) and Mean squared error (MSE).
+
+\begin{itemize}
+
+  \item \emph{Mean Absolute Error} (MAE):
+        \begin{equation}\label{eq:MAE}
+            % MAE = mean(\mid e_t\mid)
+            MAE = \frac{1}{n}\sum_{i=1}^n {\mid p_i - o_i\mid}
+        \end{equation}
+
+  \item \emph{Mean Absolute Percentage Error} (MAPE):
+        \begin{equation}\label{eq:MAPE}
+            % MAPE = mean(\mid p_t\mid)
+            MAPE = \frac{1}{n}\sum_{i=1}^n {\mid \frac{p_i - o_i}{o_i}\mid}
+        \end{equation}
+        
+  \item \emph{Mean Squared Error} (MSE):
+        \begin{equation}\label{eq:MSE}
+            MSE = \frac{1}{n}\sum_{i=1}^n {(p_i - o_i)}^2
+        \end{equation}
+
+  \item \emph{Root Mean Squared Error} (RMSE):
+        \begin{equation}\label{eq:RMSE}
+            RMSE = \sqrt{ \frac{1}{n}\sum_{i=1}^n {(p_i - o_i)}^2 }
+        \end{equation}
+
+\end{itemize}
+
+
+
+%********************************************************************************
+\section{Time series forecast tools}
+\label{sec:ForecastTools}
+
+%La predicción de series temporales es una línea de investigación madura cuyo objetivo es obtener modelos predictivos a partir de series temporales usando métodos lineales y no lineales.
+%El método lineal más conocido es ARIMA \cite{BoxJenk}. Se trata de un modelo simple cuyo funcionamiento está ampliamente demostrado, pero no funciona muy bien con muchas aplicaciones de series temporales reales puesto que su ajuste es una tarea compleja que hay que realizarla utilizando conocimiento experto \cite{Khashei12011}.
+Time series prediction is a mature research line whose objective is to obtain predictive models from time series using linear and nonlinear methods.
+A well known linear method is ARIMA \cite{BoxJenk}.
+It is a simple model whose operation is amply demonstrated. However, it does not work well when predicting real world time series, since its setting is a complex task that requires expert knowledge \cite{Khashei12011}.
+
+%Por otro lado, los modelos no lineales \cite{TongI,TongII,Chang,Blockwell} funcionan mejor ante aplicaciones reales, aunque su uso es complejo \cite{Clements2004}.
+%De ahí que existan propuestas donde se recomienda que se le de prioridad a la facilidad de uso frente a otros aspectos más técnicos \cite{Gooijer25years}.
+%Entre los modelos no lineales, destacan varias técnicas de Soft-Computing, \cite{Samanta2011,Zhu2011}, Técnicas Fuzzy \cite{Qiu2011,Wang2011},redes neuronales \cite{Tang1991,Yu2010}, Regresión \cite{Kavaklioglu2011}, y sistemas expertos \cite{Dash1995}. 
+On the other hand, nonlinear models \cite{Tongi,TongII,Chang,Blockwell} perform best on real applications, despite their complex configuration and use \cite{Clements2004}.
+Hence, several authors propose giving priority to the ease of use compared to other technical aspects \cite{Gooijer25years}.
+
+There also exist several techniques in the Soft-Computing area developed to tackle time series forecasting, such as Fuzzy Techniques \cite{Qiu2011,Wang2011}, Neural Networks \cite{Tang1991,Yu2010}, Regression \cite{Kavaklioglu2011}, and Expert Systems \cite{Dash1995}. 
+Those methods have proved their learning and generalization abilities in many successful applications \cite{Samanta2011,Zhu2011}.
+
+%Por otro lado, existen algunos métodos más complejos, basados en varias metaheurísticas \cite{Hippert10,Lee09,PerezGodoy2010}. 
+%Cabe destacar entre estos el algoritmo L-Co-R \cite{Eli2012,LCoRNeuro} como método no lineal que utiliza redes de base radial (RBFs) para determinar de forma cooperativa el lag (los datos de entrada de la serie temporal) y la predicción de la serie temporal a la que se aplique el algoritmo.
+On the other hand, references to more complex methods, based on several metaheuristics \cite{Hippert10,Lee09,PerezGodoy2010} can be found.
+Among these methods, the L-Co-R algorithm \cite{Eli2012,LCoRNeuro} cooperatively designs a radial basis function network (RBFs) along the lag (the time series input data) to predict the time series.
+
+Later, obtained results on proposed time series, using some of previously cited methods (logistic regression, neural networks, support vector machine for regression) are shown (Section \ref{sec:Experiments}).
+
+
+%********************************************************************************
+\section{Experimental results using the SIPESCA-Competition time series}
+\label{sec:Experiments}
+
+In this section a series of results obtained using several time series prediction methods is reported as a basis for future comparisons against other methods.
+
+Three prediction methods have been selected, including both linear and nonlinear methods.
+Specifically, obtained results using logistic regression (LR), multilayer perceptrons (MLP) \cite{perceptron} and support vector machine for regression (SMOreg) \cite{SVM}, all of them implemented in the Weka\footnote{http://www.cs.waikato.ac.nz/ml/weka/} tool \cite{weka} are reported.
+As those methods are widely known, practitioners can reproduce experiments and test the results, and even using the same methods proposed in this paper to compare against results obtained using their models.
+
+Using those prediction methods on the time series detailed in subsection \ref{subsection:timeseries}, several models to forecast the proposed time series have been obtained.
+
+
+In conducted experiments, the first values in each serie have been used to train the different prediction methods and to build the predictive models, while the remaining values were used to test the obtained prediction accuracy.
+
+
+In order to compare obtained results using the different prediction methods, the error measures proposed in Section \ref{sec:medidasdeerror} have been calculated.
+Table \ref{tabla:errores} shows the obtained error values for each method and each time series.
+The best (lowest) obtained value has been highlighted in bold in each case.
+
+
+%-------------  EXPLICACIÓN DE LOS RESULTADOS
+% Importante: > what is the interpretation if we get classification error
+%> RRSE 139.67% and RSE as 108.57%
+%Results from relative metrics that are over 100% indicate that the method in question is performing worse than simply predicting the mean/majority class of the training data.
+% The MAE measures the average magnitude of the errors in a set of forecasts, without considering their direction.
+% The RMSE will always be larger or equal to the MAE; the greater difference between them, the greater the variance in the individual errors in the sample. If the RMSE=MAE, then all the errors are of the same magnitude. 
+%Lower values are better the RMSE gives a relatively high weight to large errors. This means the RMSE is most useful when large errors are particularly undesirable.
+
+%{\scriptsize 
+\begin{table*}
+\caption{\footnotesize{Error measures for the time series used in these experiments. The best result in each case has been highlighted in bold. Note that for all error measures, the lower the obtained value, the better.}}
+\begin{center}
+{\scriptsize
+\begin{tabular}{|c|cccc|}
+
+%DA Interpretación: Si es del 100%, acierta en la dirección siempre, y si es del 0% no acierta nunca, interesa el 100%. Nos interesa el más alto.
+%RRSE es el cociente entre RMSE y el cálculo de RMSE si se hubiera predicho en cada paso el anterior. Nos interesa cuanto más pequeño mejor
+%RAE: Es el cociente entre MAE y el mismo cálculo de MAE si se hubiera predicho el elemento anterior de la serie. La serie predicha será perfecta cuanto sea 0
+
+%RMSE: Es la raiz cuadrada de MSE, Nos interesa el pequeño
+%MSE: Es la suma de las diferencias al cuadrado, normalizadas con N. Nos interesa pequeño 
+%MAPE: Es la media de los errores absolutos, en porcentaje, porque los errores van divididos por el elemento de la serie. Puede dar división por 0
+%MAE: Es la media de los errores absolutos. Nos interesa pequeño
+
+\multicolumn{5}{c}{Dataset ITISE15-TS\_A} \\
+\hline
+   		&   MAE 			& MAPE($\%$) 		&  MSE 			   		&   RMSE 	          \\
+LR  	& $998.49$ 			&  $8.72$    		& $1154885$  			& $1074.66$  \\ 
+MLP     & $5797.87$ 		&  $55.74$   		& $51935780$ 			& $7206.65$  \\  
+SMOreg 	& $\textbf{904.96}$ &  $\textbf{8.19}$  & $\textbf{923405.9}$ 	& $\textbf{960.94}$  \\ 
+% ITISE15-TS_A
+% LR:     mae: 998.49 mape: 8.72044% mse: 1154885 rmse: 1074.656
+% MLP:    mae:5797.87 mape:55.74392% mse: 51935780 rmse: 7206.648
+% SMOreg: mae: 904.96 mape: 8.19632% mse: 923405.9 rmse: 960.9401
+\hline
+\multicolumn{5}{c}{Dataset ITISE15-TS\_B} \\
+\hline
+   		&   MAE 			& MAPE($\%$) 		&  MSE 			   		&   RMSE 	          \\
+LR  	& $241.12$ 			&  $95.48$    		& $\textbf{80884.84}$	& $\textbf{284.40}$  \\ 
+MLP     & $\textbf{238.03}$	&  $180.92$   		& $90627.6$ 			& $301.04$  \\  
+SMOreg 	& $319.45$ 			&  $\textbf{72.71}$ & $164918.9$			& $406.10$  \\ 
+% ITISE15-TS_B
+% LR:	  mae: 241.1278 mape: 95.48794% mse: 80884.84 rmse: 284.4026
+% MLP:	  mae: 238.0346 mape: 180.9293% mse: 90627.6 rmse: 301.0442
+% SMOreg: mae: 319.4536 mape: 72.71241% mse: 164918.9 rmse: 406.1021
+\hline
+\multicolumn{5}{c}{Dataset ITISE15-TS\_C} \\
+\hline
+   		&   MAE 			& MAPE($\%$) 		&  MSE 			   		&   RMSE 	          \\
+LR  	& $\textbf{191.81}$	&  $439.57$    		& $\textbf{48154.81}$	& $\textbf{219.44}$  \\ 
+MLP     & $193.90$ 			&  $439.71$   		& $50463.92$ 			& $224.64$  \\  
+SMOreg 	& $211.94$ 			&  $\textbf{271.80}$& $58283.55$ 			& $241.41$  \\ 
+% ITISE15-TS_C
+% LR:	 mae: 191.8191 mape: 439.5766 mse: 48154.81 rmse: 219.442
+% MLP:	 mae: 193.9083 mape: 439.7194 mse: 50463.92 rmse: 224.6418
+% SMOreg mae: 211.9413 mape: 271.8045 mse: 58283.55 rmse: 241.4199
+\hline
+\multicolumn{5}{c}{Dataset ITISE15-TS\_D} \\
+\hline
+   		&   MAE 			& MAPE($\%$) 	&  MSE 			   		&   RMSE 	          \\
+LR  	& $\textbf{47.10}$ 	&  $-$    		& $\textbf{3082.39}$	& $\textbf{55.51}$  \\ 
+MLP     & $63.18$ 			&  $-$   		& $6781.66$ 			& $82.35$  \\  
+SMOreg 	& $67.19$			&  $-$			& $7224.36$ 			& $84.99$  \\ 
+% ITISE15-TS_D
+% LR:	 mae: 47.10006 	mape: Inf mse: 3082.39 rmse: 55.51928
+% MLP:	 mae: 63.187 	mape: Inf mse: 6781.661 rmse: 82.35084
+% SMOreg:mae: 67.19821 	mape: Inf mse: 7224.36 rmse: 84.99624
+\hline
+\end{tabular}
+}
+\label{tabla:errores}\end{center}
+\end{table*}
+%}
+
+
+
+\begin{table*}
+\caption{\footnotesize{Plots of the predictions obtained using the methods LR, MLP, SMOreg on the SIPESCA-Competition time series.}}
+\begin{center}
+{\scriptsize
+\begin{tabular}{c|c}
+
+\epsfig{file=ITISE15TSA.eps,width=6cm} & \epsfig{file=ITISE15TSB.eps,width=6cm}  \\
+ITISE15-TS\_A & ITISE15-TS\_B \\
+
+\hline
+
+\epsfig{file=ITISE15TSC.eps,width=6cm} & \epsfig{file=ITISE15TSD.eps,width=6cm}  \\
+ITISE15-TS\_C & ITISE15-TS\_D \\
+
+\end{tabular}
+}
+\label{tabla:plotspredictions}
+\end{center}
+\end{table*}
+
+
+
+%Although in this study we are not interested on specific results, it can be seen that the best results were obtained using the SVM-MLP method.
+
+
+As can be seen, classical methods are unable to predict on the short time.
+Paying attention to the MAPE results (it is a relative metric), in some cases, values over $100\%$ have been obtained, indicating that the method in question is performing worse than simply predicting the mean of the training data.
+Taking into account the differences between RMSE and MAE, a big difference between them can be appreciated, what means a big variance in the individual errors in the sample.
+
+Obtained predictions have been plotted in figures in Table \ref{tabla:plotspredictions}. 
+As can be seen, proposed methods are unable to adjust their predictions to those expected, and only for the first dataset (ITISE15-TS\_A) accurate predictions are obtained using LR and SMOreg.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions and Work in Progress}
+\label{sec:Conclusions}
+
+There are many fields, such as traffic management area, in which researchers have a need for standard benchmarks to be used with their prediction methods.
+In fact, it is very difficult to obtain real data and even data in suitable or standard formats.
+
+This paper presents the  SIPESCA-Competition, a set of time series obtained monitoring the traffic at several locations of the road network \cite{papersipesca2}.
+Real data were obtained by monitoring BT or WiFi signals transmited by passing devices through several locations on highways, roads and streets along several months.
+
+Data sets are left available to practitioners at the competition web site: {\tt http://geneura.ugr.es/timeseries/}
+
+The main objective is that SIPESCA-Competition time series serve as a benchmark to help researchers working in the traffic management area to test their prediction methods and to present their results, making them comparable and reproducible.
+
+In this sense, a series of benchmark results is provided as a basis for comparisons.
+In the experimental part of this work, several time series have been used and a study to predict short term has been conducted; the objective is to determine the future traffic flow in each monitored location.
+Three different prediction methods, validated in the literature, have been selected, and then, seven error measures have been calculated.
+
+%As Table \ref{tabla:errores} shows, the best overall prediction results were obtained using the SVM-MLP method.
+%In most cases, this method obtains lower error measurements when predicting considered time series.
+
+As Table \ref{tabla:errores} shows, classical methods are unable to predict on the short time. Taking into account some metrics, we have seen that the proposed methods perform worse than simply predicting the mean of the training data.
+Also, plotting obtained predictions on the proposed time series, only for the first dataset (ITISE15-TS\_A) accurate predictions are obtained using LR and SMOreg.
+
+
+Finally, this work opens up a range of possibilities for analyzing the large amount of collected data and to develop and implement methods of traffic flow prediction, not only short term but in the medium and long term. 
+This could facilitate critical tasks in the traffic management area in monitored roads.
+
+As future work, as new data is collected, new time series, covering longer time periods will be obtained.
+Thus, new data and new time series obtained will be left available and proposed as part of the SIPESCA-Competition, 
+new prediction methods and tools will be used to forecast those time series, and obtained results using those methods will be published.
+
+
+%********************************************************************************
+\section*{Acknowledgements}
+This work has been supported in part by 
+SIPESCA (Programa Operativo FEDER de Andalucía 2007-2013), 
+TIN2011-28627-C04-02 and 
+TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitivity), 
+SPIP2014-01437 (Direcci{\'o}n General de Tr{\'a}fico), 
+PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de Investigaci{\'o}n), and 
+PYR-2014-17 GENIL project (CEI-BIOTIC Granada).
+
+
+%********************************************************************************
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}

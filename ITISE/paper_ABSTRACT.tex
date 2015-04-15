@@ -1,0 +1,86 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% - ITISE - abstract - %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[runningheads,a4paper]{llncs}
+\usepackage{graphics}
+\usepackage{amssymb}
+\usepackage[dvips]{epsfig}
+%\usepackage[spanish]{babel}
+%\usepackage[latin1]{inputenc}
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\begin{document}
+\mainmatter  % start of an individual contribution
+
+% A set of benchmarking real-data problems for time series prediction algorithms
+% A set of benchmarking real-data problems for traffic prediction
+% A set of real-data problems for time series prediction algorithms
+% Real-data time series benchmark for traffic prediction  ---- itise
+
+%%%%%%%%%%%%%%%% Titulo - ITISE - abstract %%%%%%%%%%%%%%%
+\title{Real-data time series benchmark for traffic prediction}
+\titlerunning{Real-data time series benchmark for traffic prediction}
+
+%%%%%%%%%%%%%%%% autores %%%%%%%%%%%%%%%
+\author {
+%P.A. Castillo et al.
+P.A. Castillo, A.J. Fern\'andez-Ares, M.G. Arenas, A. Mora, V. Rivas, \\
+P. Garc\'{\i}a-S\'anchez, G. Romero, P. Garc\'{\i}a-Fern\'andez, J.J. Merelo
+}
+\authorrunning{P.A. Castillo et al.}
+\institute{Department of Architecture and Computer Technology. CITIC \\
+           University of Granada (Spain) \\
+~\\
+           e-mail: {\tt pacv@ugr.es}
+}
+
+%\date{} 
+
+\toctitle{Real-data time series benchmark for traffic prediction}
+\tocauthor{P.A. Castillo et al.}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+There are many fields where standard benchmarks are widely used by researchers, such as Proben1 \cite{Prechelt1994} in the artificial neural networks area, or the functional optimization competition benchmark of IEEE Congress on Evolutionary Computation \cite{CEC2014}.
+
+However, in other areas there is a need for this type of real problems, such as in the area of traffic management.
+In this area, due to the type of problems, there is a difficulty in obtaining and using real data.
+In some cases due to the lack of data in a suitable format \cite{Flyvbjerg2008}, and in other cases because it is confidential data \cite{Bain2009} obtained, i.e., in highway tolls \cite{Kriger2006}. 
+Thus, only certain research works can use that data, which makes impossible to compare results with other researchers.
+ 
+That is why many researchers present their work using traffic simulators \cite{Morzy2007} or artificial benchmarks to obtain data to which applying data mining or prediction algorithms.
+
+Thus there is a need for, not only standard benchmarks based on real traffic data, but also rules or conventions about how to use them to evaluate different prediction methods in the traffic management field.
+One way to face this problem is to encourage researchers to either use standard benchmarks or publish not only the results but also the problem data along its detailed description.
+
+Having the real data based benchmark, application rules, documentation and some results for the sake of comparison, facilitates the researchers' work, ensuring reproducibility and comparability of results \cite{PLAISANT2008}.
+
+In this sense, SIPESCA-B is intended as a first step towards a standard benchmark for the traffic management field. It consist of several time series obtained from real data from passing vehicles through several geographical points of Andalusian roads.
+As it has been published in an open access repository, practitioners can obtain and use real mobility data in their research instead of simulated data.
+
+\end{abstract}
+
+
+
+%********************************************************************************
+\section*{Acknowledgements}
+This work has been supported in part by 
+SIPESCA (Programa Operativo FEDER de Andalucía 2007-2013), 
+TIN2011-28627-C04-02 and 
+TIN2014-56494-C4-3-P (Spanish Ministry of Economy and Competitivity), 
+SPIP2014-01437 (Direcci{\'o}n General de Tr{\'a}fico), 
+PRY142/14 (Fundaci{\'o}n P{\'u}blica Andaluza Centro de Estudios Andaluces en la IX Convocatoria de Proyectos de Investigaci{\'o}n), and 
+PYR-2014-17 GENIL project (CEI-BIOTIC Granada).
+
+
+%********************************************************************************
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}
