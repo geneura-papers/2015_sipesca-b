@@ -259,11 +259,11 @@ The proposed error measurements are:
             MAE = \frac{1}{n}\sum_{i=1}^n {\mid p_i - o_i\mid}
         \end{equation}
 
-  \item \emph{Mean Absolute Percentage Error} (MAPE)\footnote{http://en.wikipedia.org/wiki/Mean\_absolute\_percentage\_error}. As in some cases a series of small denominators might lead to a division by zero, some authors \cite{kglt2009,hyysms2004} propose changing the original formula replacing each actual value ($o_i$) of the series by the average actual value ($\overline{o_i}$) of that series:
+  \item \emph{Mean Absolute Percentage Error} (MAPE)\footnote{http://en.wikipedia.org/wiki/Mean\_absolute\_percentage\_error}. As in some cases a series of small denominators might lead to a division by zero, some authors \cite{kglt2009,hyysms2004} propose changing the original formula replacing each actual value ($o_i$) of the series by the average actual value of that series ($\overline{O}$):
   		%  sum( abs( (predicho - real) / mean(real) ) ) / length(real)*100
         \begin{equation}\label{eq:MAPE}
             % MAPE = mean(\mid p_t\mid)
-            MAPE = \frac{1}{n}\sum_{i=1}^n {\mid \frac{p_i - \overline{o_i}}{ \overline{o_i} } \mid}
+            MAPE = \frac{1}{n}\sum_{i=1}^n {\mid \frac{p_i - o_i}{ \overline{O} } \mid}
         \end{equation}
         
   \item \emph{Mean Squared Error} (MSE):
