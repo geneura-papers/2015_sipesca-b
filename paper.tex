@@ -432,9 +432,42 @@ L-Co-R 	&$ 	17,48		$&$\textbf{183,07}		$&$	571,37			$&$		23,90		$&$		252,84		$&$
 %}
 
 
-
 %********************************************************************************
-\section{Conclusions and future work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions and Work in Progress}
+\label{sec:Conclusions}
+
+%Existen áreas, como la gestión del tráfico, en las que los investigadores tienen una necesidad de disponer de benchmarks estándar para ser utilizados con sus métodos de predicción. Principalmente esto es debido a la dificultad en obtener datos reales e incluso, a la dificultad de disponer de los datos en un formato adecuado.
+There are many fields, such as traffic management area, in which researchers have a need for standard benchmarks to be used with their prediction methods.
+In fact, it is very difficult to obtain real data and even data in suitable or standard formats.
+
+%En este trabajo se ha presentado el benchmark SIPESCA-B, un conjunto de series temporales obtenidas a partir de la monitorización del tráfico en varios puntos de la red de carreteras andaluza dentro del proyecto SIPESCA \cite{papersipesca1,papersipesca2}. Los datos (reales) se han obtenido monitorizando el paso de dispositivos con el BT o el wifi encendido por ciertos puntos en autovías, carreteras y calles a lo largo de varios meses.
+This paper presents the benchmark SIPESCA-B, a set of time series obtained monitoring the traffic at several locations of the road network \cite{papersipesca1,papersipesca2}.
+Real data were obtained by monitoring BT or WiFi signals transmited by passing devices through several locations on highways, roads and streets along several months.
+
+Data sets are left available to practitioners under the Open Database License in the public code repository 
+{\tt https://github.com/Sipesca/Datasets}
+
+%Esperamos que este benchmark sirva como un estándar y ayude a los investigadores que trabajan en el área de la gestión y predicción del tráfico para presentar sus resultados, haciéndolos comparables y reproducibles. 
+The main objective is that SIPESCA-B serves as a standard benchmark and help researchers working in the traffic management area to test their prediction methods and to present their results, making them comparable and reproducible.
+
+%En este sentido, se facilita una serie de resultados de referencia que servirán de base para las comparaciones. Para la parte experimental del trabajo se han utilizado varias de estas series temporales reales y se ha realizado un estudio para predecir a corto plazo (un día, los 24 valores siguientes) cuál será el flujo de tráfico en cada uno de los nodos. Se han seleccionado tres métodos de predicción de diferente tipo (basados en metaheurísticas y de tipo estadístico), validados en la bibliografía, con los que se han calculado 7 medidas de error. 
+In this sense, a series of benchmark results is provided as a basis for comparisons.
+In the experimental part of this work, several time series have been used and a study to predict short term (one day, the next 24 values) has been conducted; the objective is to determine the future traffic flow in each monitored location.
+Three different prediction methods, validated in the literature, have been selected, and then, seven error measures have been calculated.
+
+%Como se puede ver en la Tabla \ref{tabla:errores}, en general los mejores resultados de predicción se han obtenido con el método SVM-MLP. En gran parte de los casos obtiene medidas de error más bajas ante las tres series temporales consideradas.
+As Table \ref{tabla:errores} shows, the best overall prediction results were obtained using the SVM-MLP method.
+In most cases, this method obtains lower error measurements when predicting considered time series.
+
+%Finalmente, este trabajo abre un abanico de posibilidades de análisis de la gran cantidad de datos captados y la posibilidad de desarrollar y aplicar métodos de predicción no sólo a corto plazo, sino a medio y largo plazo, lo que facilitará la tarea de previsión del flujo de tráfico en las vías monitorizadas y por consiguiente una mejor gestión del tráfico en dichas vías por parte de las autoridades competentes.
+Finally, this work opens up a range of possibilities for analyzing the large amount of collected data and to develop and implement methods of traffic flow prediction, not only short term but in the medium and long term. 
+This could facilitate critical tasks in the traffic management area in monitored roads.
+
+%Como trabajos futuros, se continuarán obtenido datos del paso de vehículos para generar nuevas series temporales más completas, abarcando periodos de tiempo mayores. Los nuevos datos y las nuevas series obtenidas se dejarán accesibles en el repositorio indicado.
+As future work, as new data is collected continuously, new more complete time series, covering longer time periods will be obtained. Thus, new data and new time series obtained will be left available in the public repository.
+New prediction methods and tools will be used to forecast the time series, and obtained results using those methods will be published.
+
 
 
 
