@@ -230,6 +230,79 @@ Raw data, together with some functions developed using language R (included in t
 \section{Forecast accuracy measures}
 \label{sec:medidasdeerror}
 
+In the literature, different error measures can be found to report the results obtained using the prediction methods. Those error measurements are also called error functions or cost functions. 
+
+One of the most commonly used are the squared error and the mean squared error (see equation \ref{eq:MSE}); the latter is independent of the dataset size.
+However, many different measures are used in research, sometimes with small differences in defining equations.
+
+In any case, we recommend using widely accepted standard equations\footnote{http://www.gepsoft.com/gxpt4kb/Chapter10/Section3/Introduction.htm} in order to compare obtained results with those presented in other research papers using other methods.
+
+That is why, along with the time series benchmark, different standard error measurements (Equations \ref{eq:MAE} to \ref{eq:DA}), implemented in tools like Weka\footnote{http://wiki.pentaho.com/display/DATAMINING} \cite{LibroWeka} or R\footnote{https://www.otexts.org/fpp/2/5} \cite{LibroR}, are proposed.
+
+The proposed error measurements are:
+% The error measurements are\footnote{\url{https://www.otexts.org/fpp/2/5}}: 
+% Mean absolute error (MAE), Root mean squared error (RMSE), Mean absolute percentage error (MAPE), Root relative squared error (RRSE), Relative absolute error (RAE), Direction accuracy (DA) and Mean squared error (MSE).
+
+\begin{itemize}
+  \item \emph{Mean Absolute Error} (MAE):
+        \begin{equation}\label{eq:MAE}
+            % MAE = mean(\mid e_t\mid)
+            MAE = \frac{1}{n}\sum_{i=1}^n {\mid p_i - o_i\mid}
+        \end{equation}
+
+  \item \emph{Mean Absolute Percentage Error} (MAPE)\footnote{http://en.wikipedia.org/wiki/Mean\_absolute\_percentage\_error}. As in some cases a series of small denominators might lead to a division by zero, some authors \cite{kglt2009,hyysms2004} propose changing the original function replacing each actual value ($o_i$) by the average actual value of that series ($\overline{O}$):
+  		%  sum( abs( (predicho - real) / mean(real) ) ) / length(real)*100
+        \begin{equation}\label{eq:MAPE}
+            % MAPE = mean(\mid p_t\mid)
+            MAPE = \frac{1}{n}\sum_{i=1}^n {\mid \frac{p_i - o_i}{ \overline{O} } \mid}
+        \end{equation}
+
+%  \item \emph{Mean Absolute Percentage Error} (MAPE):
+%        \begin{equation}\label{eq:MAPE}
+%            % MAPE = mean(\mid p_t\mid)
+%            MAPE = \frac{1}{n}\sum_{i=1}^n {\mid \frac{p_i - o_i}{o_i}\mid}
+%        \end{equation}
+        
+  \item \emph{Mean Squared Error} (MSE):
+        \begin{equation}\label{eq:MSE}
+            MSE = \frac{1}{n}\sum_{i=1}^n {(p_i - o_i)}^2
+        \end{equation}
+
+  \item \emph{Root Mean Squared Error} (RMSE):
+        \begin{equation}\label{eq:RMSE}
+            RMSE = \sqrt{ \frac{1}{n}\sum_{i=1}^n {(p_i - o_i)}^2 }
+        \end{equation}
+
+  \item \emph{Relative absolute error} (RAE):
+        \begin{equation}\label{eq:RAE}
+            RAE = \frac{ \sum_{i=1}^n {\mid p_i - o_i\mid} }{ \sum_{i=1}^n {\mid p_{i-1} - o_i\mid} }
+        \end{equation}
+
+  \item \emph{Root relative squared error} (RRSE):
+        \begin{equation}\label{eq:RRSE}
+            % RRSE = \frac{ \sqrt{ \frac{1}{n}\sum_{i=1}^n {(p_i - o_i)}^2 } }{ \sqrt{ \frac{1}{n}\sum_{i=1}^n {(p_{i-1} - o_i)}^2 } }
+            RRSE = \sqrt{ \frac{ \sum_{i=1}^n {(p_i - o_i)}^2  }{ \sum_{i=1}^n {(p_{i-1} - o_i)}^2 }  }
+        \end{equation}
+
+  \item \emph{Direction accuracy} (DA):
+        \begin{equation}\label{eq:DA}
+            DA = \frac{1}{N} count(sign(o_i - o_{i-1}) == sign(p_i - p_{i-1}))
+%\begin{array}{l}
+%DA = \frac{1}{N} \sum_{i=1}^n { a_i }  \\
+%a_i =
+%\begin{cases}
+%1, & (o_i - o_{i-1})(p_i - p_{i-1}) > 0 \\
+%0, & \text{en otro caso}
+%\end{cases}
+%\end{array}
+        \end{equation}
+
+where 
+$o_i$ is the individual data $i = {1,...,n}$ 
+and
+$p_i$ is the obtained prediction.
+\end{itemize}
+
 
 
 %********************************************************************************
