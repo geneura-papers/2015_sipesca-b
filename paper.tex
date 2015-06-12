@@ -141,11 +141,94 @@ Finally, Section \ref{sec:Conclusions} presents a brief conclusions, followed by
 
 %********************************************************************************
 \section{Time series data collection}
+\label{sec:timeseries}
 
+Below, the research project in which data from passing vehicles through several roads was obtained, is described. 
+Then, the general principles and objectives of the proposed benchmark, named SIPESCA-B, are discussed. Finally, the time series that were used in the experiments presented in Section \ref{sec:Experiments} are described.
+
+\subsection{Data collection. The SIPESCA project}
+
+This work is part of the project \emph{''Sistema de Información y Predicción de bajo coste y autónomo para conocer el Estado de las Carreteras en tiempo real mediante dispositivos distribuidos'' (SIPESCA)} \cite{papersipesca1,papersipesca2}.
+The main objective of this project was building a low-cost, rapid deployment and high reliability system to provide real-time information about the traffic status and flows that occur in a certain area, allowing to optimally manage motion decisions not only by the institutions and traffic agencies, but also by citizens (i.e. through mobile alerts or through web).
+
+SIPESCA monitoring devices have collected a large amount of data corresponding to passing BT/Wifi devices by various routes of different types (highways, roads and streets in Granada and several towns in the metropolitan area of Seville, Spain).
+Taking and analyzing collected data, several time series of passing vehicles have been built. 
+Using these time series, the traffic flow on those monitored roads can be predicted.
+
+Data acquisition is based on the detection of Bluetooth (BT) and Wifi devices, which provides a description of the traffic conditions in real time as well as a set of reliable data to carry out traffic prediction using several time series forecasting techniques.
+Both BT devices embedded in some kind of vehicle and personal devices with BT or WiFi enabled are detected and accounted.
+
+The system collects the MAC address (\emph{media access control} or physical address, is a 48-bit identifier that uniquely corresponds to a card or network device) of the device BT card as well as the exact time at which it has been detected. 
+The MAC is an unique identifier for each device, allowing us to identify passing vehicles. Additionally, analyzing the MAC allows us to determine the manufacturer, model, and even distinguish what type of device it is and its features (i.e. handsfree, PC, mobile phone, etc), as detailed in \cite{IEEEBT} and \cite{WikipediaOUI}.
+Data is encrypted and stored allowing to identify just the device, but not the user, so that user privacy is guaranteed.
+Proposed acquisition method allows identifying a device in several city locations, which can give an idea of how that device has been moving.
+
+Specifically, the Intelify\footnote{http://www.intelify.net} \cite{Ariza2011} device was used for data acquisition, as it offers a suitable solution to capture BT/Wifi devices. % (it exhibits a 8.5 \% error in data collection). 
+Intelify is an autonomous unit that scan the environment and sends the information to a central server using a 3G\footnote{http://en.wikipedia.org/wiki/3G} connection for further processing and interpretation.
+
+Obtained information is organized into an entity called ''pass''. This refers to a device detected on a node at a given start time and up to an specific end time. Thus, the data node, device MAC, start time and end time categorize a step.
+
+Finally, SIPESCA project aim is obtaining information about traffic flows that occur in an area, allowing official organisms and individual road users to optimally manage their motion decisions.
+
+
+\subsection{SIPESCA-B benchmark}
+
+Publishing the SIPESCA-B benchmark seeks to offer a set of time series, obtained from real data, to practitioners in the field of management and traffic prediction.
+
+Data sets are provided in plain text, using simple and widespread formats (CSV, JSON, ARFF and XML) and are left available in the public code repository {\tt https://github.com/Sipesca/Datasets}
+under the Open Database License \footnote{http://opendatacommons.org/licenses/odbl} that allows researchers to copy and distribute data, to create derivative works, and to transform data, if the same license is maintained.
+
+Along with the data sets and the basic rules to use them, a set of predictions obtained using several time series prediction methods are presented. Thus, practitioners can use those predictions as a basis for comparisons.
+
+By using this benchmark, the reproducibility of future experiments can be improved, so that, other researchers can replicate experiments. This is an important point, as the reproducibility is a bedrock requirement of modern science, in order to check the experiments validity.
+
+Furthermore, in many papers authors just cite well-known problems in a diffuse way, such as ''the Glass Proben1 has been used'' \cite{Prechelt1994}.
+Those references are confusing, as there may be several versions of the problem, even between different papers authored by the same authors.
+In this sense, SIPESCA-B aims to facilitate both the use of well-documented problems, and the comparability of obtained results using different methods. As the problem data is the same, authors just have to specify the time series used and to detail the prediction method and parameters chosen.
+
+
+\subsection{Time series publication in a public repository}
+
+As stated above, the benchmark is left available in a public repository\footnote{https://github.com/Sipesca/Datasets}, offering the time series in 4 different file formats: CSV, JSON, XML and ARFF.
+Then, five different time intervals (highest to lowest amplitude) are presented:
+\begin{itemize}
+  \item Weeks (W)
+  \item Days (D)
+  \item Hours (H)
+  \item 30 minutes (30m)
+  \item 15 minutes (15m)
+\end{itemize}
+
+
+Both time series without timestamps as well as time series with timestamps are presented. 
+The latter have been included in a folder termed ''TS'', they correspond to the type of interval, and each time serie entry follows the date format YYYY-MM-DD HH:mm:ss.
+
+\begin{figure*} 
+\centering
+\epsfig{file=serieej.eps,width=14cm} 
+\caption{Plot of the time series in the CSV file days\_1351591695721\_2012-11-19\_2013-03-01\_103\_55-3071\_.csv}
+\label{fig:seriesEJ}
+\end{figure*}
+
+
+For example, the CSV file: \\
+{\scriptsize {\tt days\_1351591695721\_2012-11-19\_2013-03-01\_103\_55-3071\_.csv}}  \\
+corresponds to the time series in CSV format, covering the period from 11/19/2012 to 01/03/2013, at intervals of days, and whose data has been obtained in the node with id 1351591695721. 
+In addition, this series is composed by 103 values, with the minimum at value 55 and the maximum at value 3071, and it does not include timestamp (TS).
+The time series in this sample file is shown graphically in Figure \ref{fig:seriesEJ}.
+
+Furthermore, due to the problem at hand and especially the type of hardware used, there are some times when the nodes do not detect any device. This might happend either because there is a period without passing vehicles, or because the monitoring node has stopped working ).
+In such cases, the number of vehicles detected is zero.
+That is why time series with missing values are offered. These time series are noted with the AN substring as part of the filename.
+Missing values are marked with the NA value in the time series.
+
+Finally, note that not only described time series have been offered, but also raw data has been left available in folder \emph{raw}.
+Raw data, together with some functions developed using language R (included in the \emph{script} repository folder) might allow any researcher to generate new time series according to his needs (not restricted to those that have been generated and published).
 
 
 %********************************************************************************
-\section{Error measures}
+\section{Forecast accuracy measures}
+\label{sec:medidasdeerror}
 
 
 
