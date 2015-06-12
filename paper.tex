@@ -304,15 +304,132 @@ $p_i$ is the obtained prediction.
 \end{itemize}
 
 
+%********************************************************************************
+\section{Time series forecast tools}
+\label{sec:ForecastTools}
+
+Time series prediction is a mature research line whose objective is to obtain predictive models from time series using linear and nonlinear methods.
+A well known linear method is ARIMA \cite{BoxJenk}.
+It is a simple model whose operation is amply demonstrated. However, it does not work well when predicting real world time series, since its setting is a complex task that requires expert knowledge \cite{Khashei12011}.
+
+On the other hand, nonlinear models \cite{Tongi,TongII,Chang,Blockwell} perform best on real applications, despite their complex configuration and use \cite{Clements2004}.
+Hence, several authors propose giving priority to the ease of use compared to other technical aspects \cite{Gooijer25years}.
+
+There also exist several techniques in the Soft-Computing area developed to tackle time series forecasting, such as Fuzzy Techniques \cite{Qiu2011,Wang2011}, Neural Networks \cite{Tang1991,Yu2010}, Regression \cite{Kavaklioglu2011}, and Expert Systems \cite{Dash1995}. 
+Those methods have proved their learning and generalization abilities in many successful applications \cite{Samanta2011,Zhu2011}.
+
+On the other hand, references to more complex methods, based on several metaheuristics \cite{Hippert10,Lee09,PerezGodoy2010} can be found.
+Among these methods, the L-Co-R algorithm \cite{Eli2012,LCoRNeuro} cooperatively designs a radial basis function network (RBFs) along the lag (the time series input data) to predict the time series.
+
+Later, in subsection \ref{sec:resultadosobtenidos}, obtained results on several time series with some of these cited methods are shown.
+
 
 %********************************************************************************
-\section{Time series prediction methods}
+\section{Experimental results using the SIPESCA-B benchmark}
+\label{sec:Experiments}
+
+In this section a series of results obtained using several time series prediction methods described in subsection \ref{sec:seriesdeej} is reported as an example.
+Presented results might serve as a basis for future comparisons against other methods (subsection \ref{sec:resultadosobtenidos}).
+
+Three prediction methods have been selected, including both linear and nonlinear methods.
+Specifically, obtained results using ARIMA, L-Co-R and a Support Vector Machine model (SVM) \cite{SVM} with multilayer perceptrons (MLP) \cite{perceptron} implemented in the Weka tool \cite{weka}.
+
+All except L-Co-R are implemented in the Weka\footnote{http://www.cs.waikato.ac.nz/ml/weka/} or R\footnote{http://www.r-project.org/} tools and are widely known. Thus, practitioners can reproduce experiments and test the results, and even using the same methods proposed in this paper to compare against results obtained using their models.
+
+Using those prediction methods, several models to predict the last 24 hours of traffic flow have been generated.
 
 
+\begin{figure*} 
+\centering
+\epsfig{file=nodosABC.eps,width=7cm} 
+\caption{Location map of the monitoring devices used to collect data.}
+\label{fig:nodos}
+\end{figure*}
 
-%********************************************************************************
-\section{Obtained results}
+\begin{figure*} 
+\centering
+\epsfig{file=seriesABC.eps,width=9cm} 
+\caption{Number of detected vehicles per hour in each of the three nodes highlighted in Figure \ref{fig:nodos}.}
+\label{fig:series}
+\end{figure*}
 
+
+\subsection{Time series}
+\label{sec:seriesdeej}
+
+Three time series have been selected, corresponding to three monitoring devices installed in Granada (Spain), and highlighted on the map shown in Figure \ref{fig:nodos}. 
+These time series include data between December 31, 2013 and January 20, 2014, and have been left available in public repository \emph{research} folder\footnote{https://github.com/Sipesca/Datasets/tree/master/research/sipesca-b}.
+
+Values in the series represent the number of vehicles detected hourly while the monitoring device was scanning; thus, each time series consists of 505 entries.
+
+In order to show some characteristics of traffic in the metropolitan area of the city of Granada along the day, one hour interval in time series was chosen. Specifically, traffic peaks have been identified around noon, between 13h and 15h.
+This effect can be shown in Figure \ref{fig:series}, that represents the three series used in these experiments.
+
+Please, note that the time period the series covers comprises Christmas holidays and the first days of the year, which in that date accounted for more than 3.3 million vehicle displacements.
+Thus, we are dealing with time series in which many vehicles changed the usual traffic pattern in that area.
+
+In conducted experiments using detailled time series, the first 481 values have been used to train the different prediction methods and to build the predictive models, while the remaining 21 values were used to test the obtained prediction accuracy.
+Finally, the prediction horizon is equal to 1, i.e., taking $n$ known data values, the algorithm predicts the element $n+1$.
+
+
+\subsection{Experiments and obtained results}
+\label{sec:resultadosobtenidos}
+
+In order to compare obtained results using the different prediction methods, the error measures proposed in Section \ref{sec:medidasdeerror} have been calculated on each time series.
+
+Results using the L-Co-R algorithm and shown in tables have been obtained as the mean of 30 independent runs.
+
+Table \ref{tabla:errores} shows the obtained error values for each method and each time series.
+The best (lowest) obtained value has been highlighted in bold in each case.
+
+Although in this study we are not interested on specific results, it can be seen that the best results were obtained using the SVM-MLP method.
+
+%{\scriptsize 
+\begin{table*}
+\caption{\footnotesize{Error measures for the A, B and C series used in these experiments. The best result in each case has been highlighted in bold. Note that for all error measures, except for DA, the lower the obtained value, the better.}}
+\begin{center}
+{\scriptsize
+\begin{tabular}{c|ccccccc|}
+
+\multicolumn{8}{c}{Dataset A} \\
+\hline
+%DA Interpretación: Si es del 100%, acierta en la dirección siempre, y si es del 0% no acierta nunca, interesa el 100%. Nos interesa el más alto.
+%RRSE es el cociente entre RMSE y el cálculo de RMSE si se hubiera predicho en cada paso el anterior. Nos interesa cuanto más pequeño mejor
+%RAE: Es el cociente entre MAE y el mismo cálculo de MAE si se hubiera predicho el elemento anterior de la serie. La serie predicha será perfecta cuanto sea 0
+%RMSE: Es la raiz cuadrada de MSE, Nos interesa el pequeño
+%MSE: Es la suma de las diferencias al cuadrado, normalizadas con N. Nos interesa pequeño 
+%MAPE: Es la media de los errores absolutos, en porcentaje, porque los errores van divididos por el elemento de la serie. Puede dar división por 0
+%MAE: Es la media de los errores absolutos. Nos interesa pequeño
+   		& MAE 			&  MAPE($\%$) 		&  MSE 				&  RMSE 				&  RAE($\%$)			& RRSE($\%$)		&  DA($\%$) 	\\
+ARIMA 	&$\textbf{174,67}	 		$&$124,11			$&$\textbf{45751,58}			$&$\textbf{213,90}			$&$\textbf{218,81}			$&$\textbf{214,34}		$&$ 54,17	$ \\ 
+SVM-MLP 	&$ 211,72		$&$\textbf{78,96}			$&$90299,95			$&$300,50			$&$265,23			$&$301,12		$&$	\textbf{79,17}	$ \\ 
+L-Co-R 	&$ 288,36		$&$84,81				$&$146400,96			$&$382,62			$&$	361,24			$&$383,42		$&$ 45,83		$ \\ 
+%SVM-LR	&$\textbf{57,37}	$&$\textbf{51,64}	$&$\textbf{5118,30}	$&$\textbf{71,54}	$&$\textbf{71,87}	$&$\textbf{71,69}	$&$	66,67	$ \\ 
+
+\hline
+\multicolumn{8}{c}{Dataset B} \\
+\hline
+   		& MAE 				&  MAPE($\%$) 		&  MSE 				&  RMSE 				&  RAE($\%$)			& RRSE($\%$)			&  DA($\%$) 	\\
+ARIMA 	&$420,50	 			$&$	433,13			$&$	259220,81		$&$509,14			$&$507,96			$&$	474,90			$&$	54,17				$ \\ 
+SVM-MLP 	&$\textbf{132,78}			$&$\textbf{230,87}		$&$\textbf{30287,99}		$&$\textbf{174,03}			$&$\textbf{160,39}			$&$\textbf{162,33}		$&$\textbf{58,33}$ \\ 
+L-Co-R 	&$ 	204,81			$&$	320,63			$&$	76271,78			$&$		276,17		$&$		247,41		$&$		257,60		$&$54,17			$ \\ 
+%SVM-LR	&$\textbf{ 	52,10}	$&$	\textbf{42,92}	$&$\textbf{4571,18}	$&$\textbf{67,61}	$&$\textbf{62,94}	$&$\textbf{63,06}	$&$	\textbf{	58,33}	$ \\ 
+
+\hline
+\multicolumn{8}{c}{Dataset C} \\
+\hline
+   		& MAE 			&  MAPE($\%$) 		&  MSE 				&  RMSE 				&  RAE($\%$)			& RRSE($\%$)			&  DA($\%$) 	\\
+ARIMA 	&$18,03 			$&$416,08			$&$\textbf{507,47}			$&$\textbf{22,53}				$&$260,76			$&$	\textbf{209,67}			$&$	37,50		$ \\ 
+SVM-MLP 	&$\textbf{16,42}		$&$	283,82			$&$	508,19			$&$\textbf{22,54}		$&$\textbf{237,59}		$&$\textbf{209,82}			$&$		41,67	$ \\ 
+L-Co-R 	&$ 	17,48		$&$\textbf{183,07}		$&$	571,37			$&$		23,90		$&$		252,84		$&$	222,48			$&$	\textbf{54,17}$ \\ 
+%SVM-LR	&$\textbf{9,44}	$&$\textbf{119,06}	$&$	\textbf{150,85}	$&$\textbf{12,28}	$&$\textbf{136,50}	$&$	\textbf{114,32}	$&$		45,83	$ \\ 
+
+\hline
+\end{tabular}
+}
+\label{tabla:errores}\end{center}
+\end{table*}
+%}
 
 
 %********************************************************************************
