@@ -30,30 +30,21 @@ P.A. Castillo et al.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-%En el ámbito de la gestión del tráfico no existen benchmarks públicos obtenidos a partir de datos reales disponibles para la comunidad, de forma que puedan probar sus métodos de extracción de información y comparar sus resultados con los obtenidos por otros investigadores. 
-In the field of traffic management % management? Prediction? Traffic
-                                % what? Rate? modelling? 
+In the field of traffic management                                     % management? Prediction? Traffic what? Rate? modelling? 
 no public real-data benchmarks are available to the research
 community % that we know of, siempre
 for testing their information processing methods and compare their
-results with those obtained by other researchers. % This implies
-                                % that... or this is bad because... - JJ
-%En este trabajo se presenta el benchmark SIPESCA-B, un conjunto de series temporales obtenidas a partir de la monitorización del tráfico en varios puntos de la red de carreteras andaluza. Se trata de datos reales relativos al número de vehículos que han pasado por ciertos puntos a lo largo de varios meses. Las series de datos se facilitan en formatos sencillos y ampliamente extendidos y se han dejado disponibles en un repositorio público.
-In this work the benchmark SIPESCA-B, a set of time series obtained monitoring the traffic at several locations in the Andalusian road network, is presented. 
+results with those obtained by other researchers.                       % This implies that... or this is bad because... - JJ
+In this work the benchmark SIPESCA-B, a set of time series 
+obtained monitoring the traffic at several locations in the 
+Andalusian road network, is presented. 
 Time series are built using real data from the number of vehicles that
-have passed through certain locations along several months. % not
-                                % _all_ vehicles - JJ
+have passed through certain locations along several months.             % not _all_ vehicles - JJ
 The datasets are provided in simple formats with widespread use and
 are left available in a public repository. 
-%El objetivo de este trabajo es ofrecer acceso y detalles del
-%benchmark propuesto a otros investigadores, así como unos resultados
-%preliminares con varios métodos de predicción que sirvan para la
-%comparación de futuros resultados publicados en el área de la gestión
-%y predicción del tráfico. 
 Our aim for this work is to provide public access and details of this benchmark
 as well as preliminary results with various prediction methods to the
-research community to serve as comparison of future results in the
-field of
+research community to serve as comparison of future results in the field of
 management and traffic prediction. 
 
 \end{abstract}
@@ -66,15 +57,11 @@ management and traffic prediction.
 %********************************************************************************
 \section{Introduction}
 
-%En diversos campos existen benchmarks estándar que son utilizados ampliamente por los investigadores, tal como el Proben1 \cite{Prechelt1994} en el área de las redes neuronales artificiales o el benchmark de la competición de optimización funcional del congreso IEEE Congress on Evolutionary Computation \cite{CEC2014}.
 There are many fields where standard benchmarks are widely used by researchers, such as Proben1 \cite{Prechelt1994} in the artificial neural networks area, or the functional optimization competition benchmark of IEEE Congress on Evolutionary Computation \cite{CEC2014}.
 
-%Sin embargo, en otros campos hay una necesidad de este tipo de problemas reales, como por ejemplo en el área de la gestión del tráfico. En este área, por la tipología de los problemas, existe una dificultad de obtener datos reales.
 However, in other areas there is a need for this type of real problems, such as in the area of traffic management.
 In this area, due to the type of problems, there is a difficulty in obtaining and using real data.
-%En algunos casos por la dificultad de disponer de los datos en un formato adecuado \cite{Flyvbjerg2008}, y en otros casos por tratarse de datos comerciales confidenciales \cite{Bain2009} obtenidos, p.ej. en peajes de autopistas \cite{Kriger2006}.
 In some cases due to the lack of data in a suitable format \cite{Flyvbjerg2008}, and in other cases because it is confidential commercial data \cite{Bain2009} obtained, i.e., in highway tolls \cite{Kriger2006}. 
-%Esto hace que sólo en ciertos trabajos de investigación se puedan usar, con lo que es imposible comparar resultados con otros. 
 Thus, only certain research works can use that data, which makes impossible to compare results with other researchers.
 
 % Department of Infraestructure and Transport. Australian Government. Review the Traffic Forecasting Performance Toll Roads. http://www.infrastructure.gov.au/infrastructure/public_consultations/files/attach_a_bitre_literature_review.pdf
@@ -97,7 +84,6 @@ Thus, only certain research works can use that data, which makes impossible to c
 % \cite{PLAISANT2008}
 % “facilitate the comparison of different techniques and encourage researchers to work on challenging problems”
 
-%Es por esto que muchos investigadores presentan sus trabajos usando simuladores de tráfico \cite{Morzy2007} o benchmarks artificiales para obtener datos con los que trabajar (aplicarles algoritmos de extracción de información o predicción). 
 That is why many researchers present their work using traffic
 simulators \cite{Morzy2007} or artificial benchmarks to obtain data to
 which applying data mining or prediction algorithms. % The existence
